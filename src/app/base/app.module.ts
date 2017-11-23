@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'
 
 import {  AppC1,
           KeyUpCompV1,
@@ -8,7 +9,8 @@ import {  AppC1,
           KeyUpCompV4,
           LBComp,
           LTComp,
-          AppElem1
+          AppElem1,
+          ConsDebComp
 } from './app.component';
 
 
@@ -21,10 +23,12 @@ import {  AppC1,
     KeyUpCompV4,
     LBComp,
     LTComp,
-    AppElem1
+    AppElem1,
+    ConsDebComp
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppC1]

@@ -13,7 +13,44 @@ import { Hero } from './hero'; // per es. 8
   styleUrls: ['./app.component.css']
 })
 export class AppC1 {
+  // https://www.typescriptlang.org/docs/handbook/basic-types.html
   title = 'app test';
+  sentence: string = `Ciao, il mio nome è ${ fullName }.
+  I'll be ${ age + 1 } years old next month.`;
+  sentence: string = "Hello, my name is " + fullName + ".\n\n" +
+      "I'll be " + (age + 1) + " years old next month.";
+  color: string = "blue";
+  isDone: boolean = false;
+  numarticoli: number;
+  decimal: number = 6;
+  hex: number = 0xf00d;
+  binary: number = 0b1010;
+  octal: number = 0o744;
+  n: Null = null;
+  obj: {name: string, eta: number}; // oggetto
+  array: number[];
+  arrayNum: Array<number>; // array di numeri
+  arrayObj = [{name: string, eta: number}];
+  indefinita: undefined;  // non definita
+  tuple: [string, number];
+  qualsiasi: any;
+  list: any[] = [1, true, "free"];
+
+  constructor () {
+    this.array = [1, 2, 3]; // array di numeri
+    this.color = 'red';
+    this.tuple = ["hello", 10]; // OK
+    this.numarticoli = (<string>title).length;
+    this.numarticoli = (title as string).length;
+    this.qualsiasi = "maybe a string instead";
+    this.qualsiasi = false;
+    this.list[1] = 100;
+  }
+
+  getTuple() {
+    console.log(this.tuple[0].substr(1));
+    console.log(this.tuple[5].toString());
+  }
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 2
@@ -124,8 +161,7 @@ export class LTComp {
   template: `
     <button (click)="onClickMe()">Click me!</button><br />{{ clickMessage }}
 
-    <h1>{{title}}</h1>
-    <h2>My favorite hero is: {{myHero.name}}</h2>
+    <h1>My favorite hero is: {{myHero.name}}</h1>
     <p>Heroes:</p>
     <ul>
       <li *ngFor="let hero of heroes">
@@ -151,5 +187,31 @@ export class AppElem1 {
 
   onClickMe() {
     this.clickMessage = 'Hello hai cliccato!';
+  }
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// es. 9
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@Component({
+  selector: 'ConsDeb',
+  template: `
+    <button (click)="onClickMe($event)">Click me!</button><br />
+    <button (click)="onClickMe($event.target.value)" value="Valore button">Click me!</button><br />
+    <input type="text" class="form-control" (input)="getInput($event)"><br />
+    <input type="text" class="form-control" [(ngModel)]="stampval2">
+    <p>{{ stampval}}</p><p>{{ stampval2}}</p>
+    <h1 [innerText]="'Il mio nome è ' + stampval "></h1>
+    <input type="text" class="form-control" [value]='stampval'><br />
+  `
+})
+export class ConsDebComp {
+  stampval = '';
+
+  onClickMe(event) {
+    console.log(event);
+  }
+  getInput(event) {
+    console.log(event.target.value);
+    this.stampval = event.target.value
   }
 }
