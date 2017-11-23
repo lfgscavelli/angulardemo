@@ -15,10 +15,6 @@ import { Hero } from './hero'; // per es. 8
 export class AppC1 {
   // https://www.typescriptlang.org/docs/handbook/basic-types.html
   title = 'app test';
-  sentence: string = `Ciao, il mio nome è ${ fullName }.
-  I'll be ${ age + 1 } years old next month.`;
-  sentence: string = "Hello, my name is " + fullName + ".\n\n" +
-      "I'll be " + (age + 1) + " years old next month.";
   color: string = "blue";
   isDone: boolean = false;
   numarticoli: number;
@@ -26,25 +22,37 @@ export class AppC1 {
   hex: number = 0xf00d;
   binary: number = 0b1010;
   octal: number = 0o744;
-  n: Null = null;
   obj: {name: string, eta: number}; // oggetto
   array: number[];
   arrayNum: Array<number>; // array di numeri
-  arrayObj = [{name: string, eta: number}];
+  arrayObj: {name: string, eta: number}[];
   indefinita: undefined;  // non definita
   tuple: [string, number];
   qualsiasi: any;
   list: any[] = [1, true, "free"];
 
+  fullName: string;
+  age: number;
+  sentence: string = `Ciao, il mio nome è ${ this.fullName }.
+  I'll be ${ this.age + 1 } years old next month.`;
+  sentence2: string = "Hello, my name is " + this.fullName + ".\n\n" +
+        "I'll be " + (this.age + 1) + " years old next month.";
+
   constructor () {
     this.array = [1, 2, 3]; // array di numeri
     this.color = 'red';
     this.tuple = ["hello", 10]; // OK
-    this.numarticoli = (<string>title).length;
-    this.numarticoli = (title as string).length;
+    this.numarticoli = (<string>this.title).length;
+    this.numarticoli = (this.title as string).length;
     this.qualsiasi = "maybe a string instead";
     this.qualsiasi = false;
     this.list[1] = 100;
+    this.arrayObj  = [
+          { "name": "Available",    "eta": 36 },
+          { "name": "Ready",        "eta": 50 },
+          { "name": "Started",      "eta": 70 }
+    ];
+
   }
 
   getTuple() {
@@ -206,6 +214,7 @@ export class AppElem1 {
 })
 export class ConsDebComp {
   stampval = '';
+  stampval2 = '';
 
   onClickMe(event) {
     console.log(event);
