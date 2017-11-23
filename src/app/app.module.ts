@@ -1,14 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppC1,
-         AppC2
+import {  AppC1,
+          KeyUpCompV1,
+          KeyUpCompV2,
+          KeyUpCompV3,
+          KeyUpCompV4,
+          LBComp,
+          LTComp,
+          AppElem1
 } from './app.component';
 
 
 @NgModule({
   declarations: [
-    AppC1,AppC2
+    AppC1,
+    KeyUpCompV1,
+    KeyUpCompV2,
+    KeyUpCompV3,
+    KeyUpCompV4,
+    LBComp,
+    LTComp,
+    AppElem1
   ],
   imports: [
     BrowserModule
