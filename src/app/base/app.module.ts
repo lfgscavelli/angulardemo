@@ -12,6 +12,7 @@ import {  AppC1,
           AppElem1,
           ConsDebComp
 } from './app.component';
+import { TestfraComponent } from './testfra/testfra.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {  AppC1,
     LBComp,
     LTComp,
     AppElem1,
-    ConsDebComp
+    ConsDebComp,
+    TestfraComponent
   ],
   imports: [
     BrowserModule,
