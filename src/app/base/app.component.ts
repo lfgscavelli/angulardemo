@@ -22,11 +22,11 @@ export class AppC1 {
   binary: number = 0b1010;
   octal: number = 0o744;
   obj: {name: string, eta: number}; // oggetto
-  array: number[];
-  arrayNum: Array<number>; // array di numeri
-  arrayObj: {name: string, eta: number}[];
+  arrayNum: number[]; // array di numeri, string[] array di stringhe ...
+  arrayNum1: Array<number>; // array di numeri, Array<string> array di stringhe ...
+  arrayObj: {name: string, eta: number}[]; //array di oggetti
   indefinita: undefined;  // non definita
-  tuple: [string, number];
+  tuple: [string, number, string]; // array combinati - tuple
   qualsiasi: any;
   list: any[] = [1, true, "free"];
 
@@ -36,11 +36,13 @@ export class AppC1 {
   I'll be ${ this.age + 1 } years old next month.`;
   sentence2: string = "Hello, my name is " + this.fullName + ".\n\n" +
         "I'll be " + (this.age + 1) + " years old next month.";
+  a: void = undefined; // il tipo void usato per undefined e null
+  b: void = null;
 
   constructor () {
-    this.array = [1, 2, 3]; // array di numeri
+    this.arrayNum = [1, 2, 3];
     this.color = 'red';
-    this.tuple = ["hello", 10]; // OK
+    this.tuple = ["hello", 10, "world"];
     this.numarticoli = (<string>this.title).length;
     this.numarticoli = (this.title as string).length;
     this.qualsiasi = "maybe a string instead";
@@ -56,10 +58,19 @@ export class AppC1 {
   }
 
   getTuple() {
-    console.log(this.tuple[0].substr(1));
-    console.log(this.tuple[5].toString());
+    console.log(this.tuple[0].substr(2));
+    console.log(this.tuple[1].toString());
+    console.log(this.tuple[2].toUpperCase());
+  }
+
+  stampa(): void {  // tipo void, metodo che non restituisce un valore
+    console.log("hello!");
   }
 }
+
+let a = new AppC1();
+a.getTuple();
+
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 2
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
