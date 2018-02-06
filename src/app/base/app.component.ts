@@ -2,7 +2,7 @@
  *  Created by LFG Scavelli on 22/11/2017.
  */
 import { Component } from '@angular/core';
-import { Hero } from './hero'; // per es. 8
+import { Person } from './person'; // per es. 8
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 1
@@ -14,19 +14,20 @@ import { Hero } from './hero'; // per es. 8
 })
 export class AppC1 {
   // https://www.typescriptlang.org/docs/handbook/basic-types.html
-  title = 'app test Francesco';
+  title = 'app test';
   color: string = "blue";
   isDone: boolean = false;
-  numarticoli: number = 6;
+  numarticoli: number;
+  decimal: number = 6;
   hex: number = 0xf00d;
   binary: number = 0b1010;
   octal: number = 0o744;
   obj: {name: string, eta: number}; // oggetto
-  arrayNum: number[]; // array di numeri, string[] array di stringhe ...
-  arrayNum1: Array<number>; // array di numeri, Array<string> array di stringhe ...
-  arrayObj: {name: string, eta: number}[]; //array di oggetti
+  array: number[];
+  arrayNum: Array<number>; // array di numeri
+  arrayObj: {name: string, eta: number}[];
   indefinita: undefined;  // non definita
-  tuple: [string, number, string]; // array combinati - tuple
+  tuple: [string, number];
   qualsiasi: any;
   list: any[] = [1, true, "free"];
 
@@ -36,18 +37,15 @@ export class AppC1 {
   I'll be ${ this.age + 1 } years old next month.`;
   sentence2: string = "Hello, my name is " + this.fullName + ".\n\n" +
         "I'll be " + (this.age + 1) + " years old next month.";
-  a: void = undefined; // il tipo void usato per undefined e null
-  b: void = null;
 
   constructor () {
-    this.arrayNum = [1, 2, 3];
+    this.array = [1, 2, 3]; // array di numeri
     this.color = 'red';
-    this.tuple = ["hello", 10, "world"];
+    this.tuple = ["hello", 10]; // OK
     this.numarticoli = (<string>this.title).length;
     this.numarticoli = (this.title as string).length;
     this.qualsiasi = "maybe a string instead";
     this.qualsiasi = false;
-    this.qualsiasi = 4;
     this.list[1] = 100;
     this.arrayObj  = [
           { "name": "Available",    "eta": 36 },
@@ -58,42 +56,32 @@ export class AppC1 {
   }
 
   getTuple() {
-    console.log(this.tuple[0].substr(2));
-    console.log(this.tuple[1].toString());
-    console.log(this.tuple[2].toUpperCase());
-  }
-
-  stampa(): void {  // tipo void, metodo che non restituisce un valore
-    console.log("hello!");
+    console.log(this.tuple[0].substr(1));
+    console.log(this.tuple[5].toString());
   }
 }
-
-let a = new AppC1();
-a.getTuple();
-
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 2
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
   selector: 'KeyUp1',
   template: `
-        2. <input (keyup)="onKey($event.target.value)">
+        <input (keyup)="onKey($event)">
         <p>{{ values }}</p>
     `
 })
 export class KeyUpCompV1 {
   values = '';
 
-
+  /*
    onKey(event: any) { // without type info
-      this.values += event + ' | ';
+   this.values += event.target.value + ' | ';
    }
+   */
 
- /*
   onKey(event: KeyboardEvent) { // with type info
     this.values += (<HTMLInputElement>event.target).value + ' | ';
   }
- */
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 3
@@ -101,7 +89,7 @@ export class KeyUpCompV1 {
 @Component({
   selector: 'KeyUp2',
   template: `
-        3. <input #box (keyup)="onKey(box.value)">
+        <input #box (keyup)="onKey(box.value)">
         <p>{{ values }}</p>
     `
 })
@@ -118,7 +106,7 @@ export class KeyUpCompV2 {
 @Component({
   selector: 'KeyUp3',
   template: `
-    4. <input #box (keyup.enter)="onEnter(box.value)">
+    <input #box (keyup.enter)="onEnter(box.value)">
     <p>{{ value }}</p>
   `
 })
@@ -132,7 +120,7 @@ export class KeyUpCompV3 {
 @Component({
   selector: 'KeyUp4',
   template: `
-    5. <input #box (keyup.enter)="update(box.value)" (blur)="update(box.value)">
+    <input #box (keyup.enter)="update(box.value)" (blur)="update(box.value)">
 
     <p>{{value}}</p>
   `
@@ -147,7 +135,7 @@ export class KeyUpCompV4 {
 @Component({
   selector: 'loop-back',
   template: `
-    6. <input #box (keyup)="0">
+    <input #box (keyup)="0">
     <p>{{ box.value }}</p>
   `
 })
@@ -158,7 +146,7 @@ export class LBComp { }
 @Component({
   selector: 'little-tour',
   template: `
-    7. <input #newHero
+    <input #newHero
       (keyup.enter)="addHero(newHero.value)"
       (blur)="addHero(newHero.value); newHero.value='' ">
     <button (click)="addHero(newHero.value)">Add</button>
@@ -179,31 +167,31 @@ export class LTComp {
 @Component({
   selector: 'InsElement',
   template: `
-    8. <button (click)="onClickMe()">Click me!</button><br />{{ clickMessage }}
+    <button (click)="onClickMe()">Click me!</button><br />{{ clickMessage }}
 
-    <h1>My favorite hero is: {{myHero.name}}</h1>
-    <p>Heroes:</p>
+    <h1>My favorite Person is: {{myPerson.name}}</h1>
+    <p>Persons:</p>
     <ul>
-      <li *ngFor="let hero of heroes">
-        {{ hero.name }}
+      <li *ngFor="let person of persons">
+        {{ person.name }}
       </li>
     </ul>
 
-    <img src="../../assets/images/angular.jpg">
-    <p *ngIf="heroes.length > 3">There are many heroes!</p>
+    <img src="../../assets/images/angular.png">
+    <p *ngIf="persons.length > 3">There are many persons!</p>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppElem1 {
   clickMessage = '';
 
-  heroes = [
-    new Hero(1, 'Windstorm'),
-    new Hero(13, 'Bombasto'),
-    new Hero(15, 'Magneta'),
-    new Hero(20, 'Tornado')
+  persons = [
+    new Person(1, 'Luigi'),
+    new Person(13, 'Francesco'),
+    new Person(15, 'Angela'),
+    new Person(20, 'Tommaso')
   ];
-  myHero = this.heroes[1];
+  myPerson = this.persons[1];
 
   onClickMe() {
     this.clickMessage = 'Hello hai cliccato!';
@@ -215,13 +203,13 @@ export class AppElem1 {
 @Component({
   selector: 'ConsDeb',
   template: `
-    9. <button (click)="onClickMe($event)">Click me!</button><br />
-    9.1 <button (click)="onClickMe($event.target.value)" value="Valore button">Click me!</button><br />
-    9.2 <input type="text" (input)="getInput($event)"><br />
-    9.3 <input type="text" [(ngModel)]="stampval2">
+    <button (click)="onClickMe($event)">Click me!</button><br />
+    <button (click)="onClickMe($event.target.value)" value="Valore button">Click me!</button><br />
+    <input type="text" class="form-control" (input)="getInput($event)"><br />
+    <input type="text" class="form-control" [(ngModel)]="stampval2">
     <p>{{ stampval}}</p><p>{{ stampval2}}</p>
     <h1 [innerText]="'Il mio nome è ' + stampval "></h1>
-    9.4 <input type="text" [value]='stampval'><br />
+    <input type="text" class="form-control" [value]='stampval'><br />
   `
 })
 export class ConsDebComp {
