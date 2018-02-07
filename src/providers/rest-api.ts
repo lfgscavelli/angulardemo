@@ -1,38 +1,37 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable} from "rxjs/Observable";
-import {Person} from "../app/base/person";
+import { Text } from "@angular/compiler";
 
-export interface Person {
-  name: string;
-  surname: string;
+export interface Article {
+  id: number;
+  title: string;
+  url: string;
+  image: string;
+  content_html: Text;
+  date_created: Date;
+  date_modified: Date;
+  author: {};
 }
 
 @Injectable()
-export class PersonsService {
+export class ArticlesService {
+  baseUrl = "http://newportalcms.com/articles";
+
   constructor(private http: HttpClient) {}
 
-  /**
-   * getPersons() restituisce
-   * @returns {Observable<Person>}
-   */
-  getPersons(): Observable<Person> {
+  getArticles(): Observable<any> {
     // aggiungo eventuali parametri alla url (richiesta get)
-    const params = new HttpParams().set('id','133').set('include','true');
-
-    return this.http.get<Person>('api/v1/peaple', { params: params})
+    const params = new HttpParams().set('json',null).set('portletid','19');
+    return this.http.get<any>(this.baseUrl, { params: params} );
   }
 
-  /**
-   * postPerson()
-   * @returns {Observable<Person>}
-   */
-  postPerson(): Observable<Person> {
-    // Preparo i parametri da inviare nel post
-    const newPerson = {
-      'name': 'Vito',
-      'surname': 'Russo'
-    };
-    return this.http.post<Person>('api/v1/peaple', newPerson)
+  getArticle(url): Observable<Article> {
+    const params = new HttpParams().set('json',null);
+    return this.http.get<Article>(url, { params: params} );
+  }
+
+  postArticle(article: Article): Observable<Article> {
+    return this.http.post<Article>(this.baseUrl, article);
   }
 }
