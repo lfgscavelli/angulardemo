@@ -4,54 +4,61 @@
 import { Component } from '@angular/core';
 import { Person } from './person'; // per es. 8
 
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 1
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'app1',
+  selector: 'app-1',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppC1 {
+export class AppComponent {
   // https://www.typescriptlang.org/docs/handbook/basic-types.html
   title = 'app test';
-  color: string = "blue";
-  isDone: boolean = false;
+  color: string;
+  isDone: boolean;
   numarticoli: number;
-  decimal: number = 6;
-  hex: number = 0xf00d;
-  binary: number = 0b1010;
-  octal: number = 0o744;
+  decimal: number;
+  hex: number;
+  binary: number;
+  octal: number;
   obj: {name: string, eta: number}; // oggetto
-  array: number[];
-  arrayNum: Array<number>; // array di numeri
+  array: number[]; // array di numeri
+  arrayNum: Array<number>; // array di numeri altro modo es Array<string> etc..
   arrayObj: {name: string, eta: number}[];
   indefinita: undefined;  // non definita
   tuple: [string, number];
   qualsiasi: any;
-  list: any[] = [1, true, "free"];
+  list: any[] = [1, true, 'free'];
 
   fullName: string;
   age: number;
-  sentence: string = `Ciao, il mio nome è ${ this.fullName }.
-  I'll be ${ this.age + 1 } years old next month.`;
-  sentence2: string = "Hello, my name is " + this.fullName + ".\n\n" +
-        "I'll be " + (this.age + 1) + " years old next month.";
+  sentence: string;
+  sentence2: string = 'Hello, my name is ' + this.fullName + '.\n\n' +
+        'I\'ll be ' + (this.age + 1) + ' years old next month ';
 
   constructor () {
     this.array = [1, 2, 3]; // array di numeri
     this.color = 'red';
-    this.tuple = ["hello", 10]; // OK
+    this.tuple = ['hello', 10]; // OK
     this.numarticoli = (<string>this.title).length;
     this.numarticoli = (this.title as string).length;
-    this.qualsiasi = "maybe a string instead";
+    this.qualsiasi = 'maybe a string instead';
     this.qualsiasi = false;
     this.list[1] = 100;
     this.arrayObj  = [
-          { "name": "Available",    "eta": 36 },
-          { "name": "Ready",        "eta": 50 },
-          { "name": "Started",      "eta": 70 }
+          { 'name': 'Available',    'eta': 36 },
+          { 'name': 'Ready',        'eta': 50 },
+          { 'name': 'Started',      'eta': 70 }
     ];
+    this.isDone = false;
+    this.decimal = 1.23;
+    this.hex = 0xf00d;
+    this.binary = 0b1010;
+    this.octal = 0o744;
+    this.obj = {'name': 'luigi', 'eta': 15};
+    this.sentence  = `Ciao, il mio nome è ${ this.fullName }.
+  I'll be ${ this.age + 1 } years old next month.`;
 
   }
 
@@ -60,11 +67,11 @@ export class AppC1 {
     console.log(this.tuple[5].toString());
   }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 2
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'KeyUp1',
+  selector: 'KeyUpCompV1',
   template: `
         <input (keyup)="onKey($event)">
         <p>{{ values }}</p>
@@ -83,11 +90,11 @@ export class KeyUpCompV1 {
     this.values += (<HTMLInputElement>event.target).value + ' | ';
   }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 3
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'KeyUp2',
+  selector: 'Key-Up2',
   template: `
         <input #box (keyup)="onKey(box.value)">
         <p>{{ values }}</p>
@@ -96,15 +103,15 @@ export class KeyUpCompV1 {
 export class KeyUpCompV2 {
   values = '';
   onKey(value: string) {
-    //this.values += value + ' | ';
+    // this.values += value + ' | ';
     this.values = value;
   }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 4
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'KeyUp3',
+  selector: 'Key-Up3',
   template: `
     <input #box (keyup.enter)="onEnter(box.value)">
     <p>{{ value }}</p>
@@ -114,11 +121,11 @@ export class KeyUpCompV3 {
   value = '';
   onEnter(value: string) { this.value = value; }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 5
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'KeyUp4',
+  selector: 'Key-Up4',
   template: `
     <input #box (keyup.enter)="update(box.value)" (blur)="update(box.value)">
 
@@ -129,9 +136,9 @@ export class KeyUpCompV4 {
   value = '';
   update(value: string) { this.value = value; }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 6
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
   selector: 'loop-back',
   template: `
@@ -140,9 +147,9 @@ export class KeyUpCompV4 {
   `
 })
 export class LBComp { }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 7
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
   selector: 'little-tour',
   template: `
@@ -161,11 +168,11 @@ export class LTComp {
     }
   }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 8
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'InsElement',
+  selector: 'Ins-Element',
   template: `
     <button (click)="onClickMe()">Click me!</button><br />{{ clickMessage }}
 
@@ -197,11 +204,11 @@ export class AppElem1 {
     this.clickMessage = 'Hello hai cliccato!';
   }
 }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 9
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
-  selector: 'ConsDeb',
+  selector: 'Cons-Deb',
   template: `
     <button (click)="onClickMe($event)">Click me!</button><br />
     <button (click)="onClickMe($event.target.value)" value="Valore button">Click me!</button><br />

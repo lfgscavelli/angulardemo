@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 
-import {  AppC1,
+import {  AppComponent,
           KeyUpCompV1,
           KeyUpCompV2,
           KeyUpCompV3,
@@ -12,12 +12,11 @@ import {  AppC1,
           AppElem1,
           ConsDebComp
 } from './app.component';
-import { TestfraComponent } from './testfra/testfra.component';
 
 
 @NgModule({
   declarations: [
-    AppC1,
+    AppComponent,
     KeyUpCompV1,
     KeyUpCompV2,
     KeyUpCompV3,
@@ -25,14 +24,13 @@ import { TestfraComponent } from './testfra/testfra.component';
     LBComp,
     LTComp,
     AppElem1,
-    ConsDebComp,
-    TestfraComponent
+    ConsDebComp
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppC1]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
