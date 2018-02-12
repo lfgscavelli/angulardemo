@@ -26,6 +26,7 @@ export class AppComponent {
   array: number[]; // array di numeri
   arrayNum: Array<number>; // array di numeri altro modo es Array<string> etc..
   arrayObj: {name: string, eta: number}[];
+  arrayObj1: Object[]; // oppure Array<Object>
   indefinita: undefined;  // non definita
   tuple: [string, number];
   qualsiasi: any;
@@ -57,9 +58,24 @@ export class AppComponent {
     this.binary = 0b1010;
     this.octal = 0o744;
     this.obj = {'name': 'luigi', 'eta': 15};
-    this.sentence  = `Ciao, il mio nome è ${ this.fullName }.
-  I'll be ${ this.age + 1 } years old next month.`;
+    const foo = 123;
+    const boo = {};
+    boo['test'] = 'post';
+    console.log(boo);
+    const too = Object.freeze({}); // obblighiamo a non modificare il valore dell'oggetto della coastante
 
+    // il carattere back-tick consente di scrivere il testo su più righe
+    let multiriga = `
+      con l'uso del carattere back-tick
+      la stringa può
+      estendersi su 
+      più righe`;
+    console.log(multiriga);
+    
+    // il carattere back-tick consente l'estensione delle variabili, usando ${...}
+    this.sentence  = `
+      Ciao, il mio nome è ${ this.fullName }.
+      I'll be ${ this.age + 1 } years old next month.`;
   }
 
   getTuple() {
