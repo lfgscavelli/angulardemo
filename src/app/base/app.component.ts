@@ -14,14 +14,16 @@ import { Person } from './person'; // per es. 8
 })
 export class AppComponent {
   // https://www.typescriptlang.org/docs/handbook/basic-types.html
+  // tipo stringa
   title = 'app test';
-  color: string;
-  isDone: boolean;
-  numarticoli: number;
+  // tipi numerici
+  numerolettere: number;
   decimal: number;
   hex: number;
   binary: number;
   octal: number;
+  isDone: boolean;
+  color: string;
   obj: {name: string, eta: number}; // oggetto
   array: number[]; // array di numeri
   arrayNum: Array<number>; // array di numeri altro modo es Array<string> etc..
@@ -39,11 +41,12 @@ export class AppComponent {
         'I\'ll be ' + (this.age + 1) + ' years old next month ';
 
   constructor () {
+    this.isDone = false;
     this.array = [1, 2, 3]; // array di numeri
     this.color = 'red';
     this.tuple = ['hello', 10]; // OK
-    this.numarticoli = (<string>this.title).length;
-    this.numarticoli = (this.title as string).length;
+    this.numerolettere = (<string>this.title).length;
+    this.numerolettere = (this.title as string).length;
     this.qualsiasi = 'maybe a string instead';
     this.qualsiasi = false;
     this.list[1] = 100;
@@ -52,7 +55,7 @@ export class AppComponent {
           { 'name': 'Ready',        'eta': 50 },
           { 'name': 'Started',      'eta': 70 }
     ];
-    this.isDone = false;
+    
     this.decimal = 1.23;
     this.hex = 0xf00d;
     this.binary = 0b1010;
