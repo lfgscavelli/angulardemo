@@ -27,7 +27,7 @@ export class AppComponent {
   // booleano
   isView: boolean;
 
-  // array - type[] oppure Array<elemType>
+  // array - type[] oppure Array<Type>
   arrayNum: number[]; // array di numeri
   arrayNum2: Array<number>; // alternativa a number[]
   arrayStr: string[]; // array di stringhe - oppure Array<string>;
@@ -58,6 +58,17 @@ export class AppComponent {
 
   // articles domain model 
   articles: Array<Article>;
+
+  // map
+  map = new Map([
+    ["A",1]
+  ]);
+
+  // set - solo chiavi
+  set = new Set(['A']);
+
+  // definisco un tipo function
+  fun: Function;
 
   constructor () {
     // numerico
@@ -124,6 +135,22 @@ export class AppComponent {
       new Article('terzo articolo', 'bla bla bla')
     ];
     let myArticle = this.articles[1];
+
+    // map concatenato
+    this.map.set("B",2)
+    .set("C",3)
+    .set("D",4);
+    console.log(this.map.get("A")); 
+    // this.map.size; this.map.has("A"); this.map.delete("A"); this.map.clear(); this.map.keys(); 
+    // this.map.values(); this.map.entries()...
+
+    // set concatenato
+    this.set.add('B')
+    .add('C');
+    // this.set.size; this.set.has("A"); this.set.delete("B"); this.set.clear()...
+
+    // tipo function
+    this.fun = () => console.log("Assegno una funzione");
 
   }
 
