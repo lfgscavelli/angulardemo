@@ -2,7 +2,7 @@
  *  Created by LFG Scavelli on 22/11/2017.
  */
 import { Component } from '@angular/core';
-import { Person } from './person'; // per es. 8
+import { Article } from './article'; // per es. 8
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 1
@@ -13,58 +13,92 @@ import { Person } from './person'; // per es. 8
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // https://www.typescriptlang.org/docs/handbook/basic-types.html
-  // tipo stringa
-  title = 'app test';
-  // tipi numerici
+
+  // stringa
+  title: string = 'App demo';
+
+  // numerici a virgola mobile
   numerolettere: number;
   decimal: number;
   hex: number;
   binary: number;
   octal: number;
-  isDone: boolean;
-  color: string;
-  obj: {name: string, eta: number}; // oggetto
-  array: number[]; // array di numeri
-  arrayNum: Array<number>; // array di numeri altro modo es Array<string> etc..
-  arrayObj: {name: string, eta: number}[];
-  arrayObj1: Object[]; // oppure Array<Object>
-  indefinita: undefined;  // non definita
+
+  // booleano
+  isView: boolean;
+
+  // array - type[] oppure Array<elemType>
+  arrayNum: number[]; // array di numeri
+  arrayNum2: Array<number>; // alternativa a number[]
+  arrayStr: string[]; // array di stringhe - oppure Array<string>;
+
+  // oggetto
+  obj: {name: string, cognome:string, eta: number};
+
+  // array di oggetti
+  arrayObj: Object[];
+  arrayObj1: Array<Object>;
+  arrayObj2: {name: string, cognome:string, eta: number}[];
+  
+  // tuple
   tuple: [string, number];
+  
+  // qualunque tipo
   qualsiasi: any;
   list: any[] = [1, true, 'free'];
 
-  fullName: string;
-  age: number;
+  // Nulla e indefinita
+  indefinita: undefined;  // non definita
+  nulla: null = null; // nulla
+
+  // modelli di stringhe con estensioni di variabili
+  fullName: string = `LFG Scavelli`;
+  age: number = 25;
   sentence: string;
-  sentence2: string = 'Hello, my name is ' + this.fullName + '.\n\n' +
-        'I\'ll be ' + (this.age + 1) + ' years old next month ';
+
+  // articles domain model 
+  articles: Array<Article>;
 
   constructor () {
-    this.isDone = false;
-    this.array = [1, 2, 3]; // array di numeri
-    this.color = 'red';
-    this.tuple = ['hello', 10]; // OK
+    // numerico
     this.numerolettere = (<string>this.title).length;
     this.numerolettere = (this.title as string).length;
-    this.qualsiasi = 'maybe a string instead';
-    this.qualsiasi = false;
-    this.list[1] = 100;
-    this.arrayObj  = [
-          { 'name': 'Available',    'eta': 36 },
-          { 'name': 'Ready',        'eta': 50 },
-          { 'name': 'Started',      'eta': 70 }
-    ];
-    
     this.decimal = 1.23;
     this.hex = 0xf00d;
     this.binary = 0b1010;
     this.octal = 0o744;
-    this.obj = {'name': 'luigi', 'eta': 15};
-    const foo = 123;
-    const boo = {};
-    boo['test'] = 'post';
-    console.log(boo);
+
+    // booleano
+    this.isView = false;
+
+    // array numerico
+    this.arrayNum = this.arrayNum2 = [1, 2, 3];
+
+    // tuple
+    this.tuple = ['hello', 10];
+
+    // qualunque tipo
+    this.qualsiasi = 'maybe a string instead';
+    this.qualsiasi = false;
+    this.list[1] = 100;
+
+    // oggetto
+    this.obj = {'name': 'luigi', 'cognome': 'Marelli', 'eta': 15};
+    console.log(this.obj.eta);
+    // model of obj
+    const {cognome: co, eta: et} = this.obj; // oppure con lo stesso nome const {cognome, eta} = this.obj;
+
+    // array di oggetti
+    this.arrayObj  = [
+          { 'name': 'Vittorio','eta': 36 },
+          { 'name': 'Vito','eta': 50 },
+          { 'name': 'Alberto','eta': 70 }
+    ];
+
+    // enum
+    enum Color {Red=1, Green, Blue}; // con Red=1 l'indice parte da 1 altrimenti da 0
+    let c: Color = Color.Green; // Color[2]
+    
     const too = Object.freeze({}); // obblighiamo a non modificare il valore dell'oggetto della coastante
 
     // il carattere back-tick consente di scrivere il testo su più righe
@@ -74,11 +108,23 @@ export class AppComponent {
       estendersi su 
       più righe`;
     console.log(multiriga);
+
+    // il seguente template strings
+    this.sentence  = 'Ciao, Il mio nome è ' + this.fullName + '.\n\n' +
+    'Avrò ' + (this.age + 1) + ' anni il prossimo mese ';
     
-    // il carattere back-tick consente l'estensione delle variabili, usando ${...}
-    this.sentence  = `
-      Ciao, il mio nome è ${ this.fullName }.
-      I'll be ${ this.age + 1 } years old next month.`;
+    // equivale al seguente modello - il carattere back-tick consente l'estensione delle variabili, usando ${...}
+    this.sentence  = `Ciao, il mio nome è ${ this.fullName }.
+    Avrò ${ this.age + 1 } anni il prossimo mese.`;
+
+    // articles domain model 
+    this.articles = [
+      new Article('primo articolo', 'bla bla bla'),
+      new Article('secondo articolo', 'bla bla bla'),
+      new Article('terzo articolo', 'bla bla bla')
+    ];
+    let myArticle = this.articles[1];
+
   }
 
   getTuple() {
@@ -195,29 +241,28 @@ export class LTComp {
   template: `
     <button (click)="onClickMe()">Click me!</button><br />{{ clickMessage }}
 
-    <h1>My favorite Person is: {{myPerson.name}}</h1>
-    <p>Persons:</p>
+    <h1>My favorite Article is: {{myArticle.title}}</h1>
+    <p>Articles:</p>
     <ul>
-      <li *ngFor="let person of persons">
-        {{ person.name }}
+      <li *ngFor="let article of articles">
+        {{ article.title }}
       </li>
     </ul>
 
     <img src="../../assets/images/angular.png">
-    <p *ngIf="persons.length > 3">There are many persons!</p>
+    <p *ngIf="articles.length > 3">There are many articles!</p>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppElem1 {
   clickMessage = '';
 
-  persons = [
-    new Person(1, 'Luigi'),
-    new Person(13, 'Francesco'),
-    new Person(15, 'Angela'),
-    new Person(20, 'Tommaso')
+  articles = [
+    new Article('primo articolo', 'bla bla bla'),
+    new Article('secondo articolo', 'bla bla bla'),
+    new Article('terzo articolo', 'bla bla bla')
   ];
-  myPerson = this.persons[1];
+  myArticle = this.articles[1];
 
   onClickMe() {
     this.clickMessage = 'Hello hai cliccato!';
