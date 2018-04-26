@@ -2,7 +2,9 @@
  *  Created by LFG Scavelli on 22/11/2017.
  */
 import { Component } from '@angular/core';
-import { Article } from './article'; // per es. 8
+import { Article } from './article';
+import { Person } from './person';
+import { Post } from './post';
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 1
@@ -14,105 +16,28 @@ import { Article } from './article'; // per es. 8
 })
 export class AppComponent {
 
-  // stringa
-  title: string = 'App demo';
-
-  // numerici a virgola mobile
-  numerolettere: number;
-  decimal: number;
-  hex: number;
-  binary: number;
-  octal: number;
-
-  // booleano
-  isView: boolean;
-
-  // array - type[] oppure Array<Type>
-  arrayNum: number[]; // array di numeri
-  arrayNum2: Array<number>; // alternativa a number[]
-  arrayStr: string[]; // array di stringhe - oppure Array<string>;
-
-  // oggetto
-  obj: {name: string, cognome:string, eta: number};
-
-  // array di oggetti
-  arrayObj: Object[];
-  arrayObj1: Array<Object>;
-  arrayObj2: {name: string, cognome:string, eta: number}[];
-  
-  // tuple
-  tuple: [string, number];
-  
-  // qualunque tipo
-  qualsiasi: any;
-  list: any[] = [1, true, 'free'];
-
-  // Nulla e indefinita
-  indefinita: undefined;  // non definita
-  nulla: null = null; // nulla
-
-  // modelli di stringhe con estensioni di variabili
-  fullName: string = `LFG Scavelli`;
-  age: number = 25;
-  sentence: string;
-
-  // articles domain model 
-  articles: Array<Article>;
-
-  // map
-  map = new Map([
-    ["A",1]
-  ]);
-
-  // set - solo chiavi
-  set = new Set(['A']);
-
-  // definisco un tipo function
-  fun: Function;
-
   constructor () {
-    // numerico
-    this.numerolettere = (<string>this.title).length;
-    this.numerolettere = (this.title as string).length;
-    this.decimal = 1.23;
-    this.hex = 0xf00d;
-    this.binary = 0b1010;
-    this.octal = 0o744;
 
-    // booleano
-    this.isView = false;
+    // numerici a virgola mobile
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let num: number;
+    let decimal: number;
+    let hex: number;
+    let binary: number;
+    let octal: number;
+    num = 123;
+    decimal = 1.23;
+    hex = 0xf00d;
+    binary = 0b1010;
+    octal = 0o744;
 
-    // array numerico
-    this.arrayNum = this.arrayNum2 = [1, 2, 3];
-
-    // tuple
-    this.tuple = ['hello', 10];
-
-    // qualunque tipo
-    this.qualsiasi = 'maybe a string instead';
-    this.qualsiasi = false;
-    this.list[1] = 100;
-
-    // oggetto
-    this.obj = {'name': 'luigi', 'cognome': 'Marelli', 'eta': 15};
-    console.log(this.obj.eta);
-    // model of obj
-    const {cognome: co, eta: et} = this.obj; // oppure con lo stesso nome const {cognome, eta} = this.obj;
-
-    // array di oggetti
-    this.arrayObj  = [
-          { 'name': 'Vittorio','eta': 36 },
-          { 'name': 'Vito','eta': 50 },
-          { 'name': 'Alberto','eta': 70 }
-    ];
-
-    // enum
-    enum Color {Red=1, Green, Blue}; // con Red=1 l'indice parte da 1 altrimenti da 0
-    let c: Color = Color.Green; // Color[2]
-    
-    const too = Object.freeze({}); // obblighiamo a non modificare il valore dell'oggetto della coastante
+    // stringa e modelli di stringa
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let title: string = 'App demo';
+    let sentence: string;
 
     // il carattere back-tick consente di scrivere il testo su più righe
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     let multiriga = `
       con l'uso del carattere back-tick
       la stringa può
@@ -120,44 +45,192 @@ export class AppComponent {
       più righe`;
     console.log(multiriga);
 
-    // il seguente template strings
-    this.sentence  = 'Ciao, Il mio nome è ' + this.fullName + '.\n\n' +
-    'Avrò ' + (this.age + 1) + ' anni il prossimo mese ';
+    // il seguente modello
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    sentence  = 'Ciao, Il mio nome è ' + title + '.\n\n' +
+    'Avrò ' + (num + 1) + ' anni il prossimo mese ';
     
     // equivale al seguente modello - il carattere back-tick consente l'estensione delle variabili, usando ${...}
-    this.sentence  = `Ciao, il mio nome è ${ this.fullName }.
-    Avrò ${ this.age + 1 } anni il prossimo mese.`;
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    sentence  = `Ciao, il mio nome è ${ title }.
+    Avrò ${ num + 1 } anni il prossimo mese.`;
 
-    // articles domain model 
-    this.articles = [
+    // asserzioni di tipo
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    num = (<string>title).length;
+    num = (title as string).length;
+
+    // booleano
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let isView: boolean = false; // true
+
+    // oggetto
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let obj: {name: string, cognome: string, eta: number};
+    obj = {'name': 'Vito', 'cognome': 'Marelli', 'eta': 18};
+    console.log(obj.eta);
+
+    // array - type[] oppure Array<Type>
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let arrayNum: number[]; // array di numeri
+    let arrayNum2: Array<number>; // alternativa a number[]
+    let arrayStr: string[]; // array di stringhe - oppure Array<string>;
+    arrayNum = arrayNum2 = [1, 2, 3, 4];
+    let boolArray: boolean[] = [true, false];
+
+    // array di oggetti
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let arrayObj: Array<Object>;
+    arrayObj  = [
+      { 'name': 'Vittorio','eta': 36 },
+      { 'name': 'Vito','eta': 50 },
+      { 'name': 'Alberto','eta': 70 }
+    ];
+    console.log(arrayObj[1]);
+    let arrayObj2: {name: string, cognome:string, eta: number}[];
+
+    // tuple
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+    let tuple: [string, number];
+    tuple = ['hello', 10];
+    console.log(tuple[0].substr(1));
+    console.log(tuple[5].toString());
+
+    // qualunque tipo
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+    let qualsiasi: any;
+    qualsiasi = 'maybe a string instead';
+    qualsiasi = false;
+    let list: any[] = [1, true, 'free'];
+    list[1] = 100;
+
+    // modelli di object e array - Destructuring
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+    const {cognome: co, eta: et} = obj;
+    const {cognome, eta} = obj; // or var {cognome, eta} = obj;
+    console.log(cognome);
+
+    let {w, x, ...altro} = {w: 1, x: 2, y: 3, z: 4};
+    console.log(w, x, altro); // 1, 2, {y:3,z:4}
+
+    let [n, m] = arrayNum;
+    let [a, b, ...remaining] = arrayNum;
+    console.log(a, b, remaining); // 1, 2, [3,4]
+
+    // Nulla e indefinita - possono essere assegnati a qualsiasi altro
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+    let indefinita: undefined;  // non definita
+    let nulla: null = null; // nulla
+    let num1: number = null;
+    let str: string = undefined;
+
+    // map
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let map = new Map([
+      ["A",1]
+    ]);
+
+    map.set("B",2)
+    .set("C",3)
+    .set("D",4);
+    console.log(map.get("A")); 
+    // map.size; map.has("A"); map.delete("A"); map.clear(); map.keys(); map.values(); map.entries() ...
+
+    // set - solo chiavi
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let set = new Set(['A']);
+    set.add('B')
+    .add('C');
+    // set.size; set.has("A"); set.delete("B"); set.clear()...
+
+    // tipo function
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let fun: Function;
+    fun = () => console.log("Assegno una funzione");
+
+    // enum
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    enum Color {Red=1, Green, Blue}; // con Red=1 l'indice parte da 1 altrimenti da 0
+    let c: Color = Color.Green; // Color[2] or 3
+
+    // domain model - class
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let article: Article = new Article('Articolo example', 'bla bla bla');
+    let articles: Array<Article>;
+    articles = [
       new Article('primo articolo', 'bla bla bla'),
       new Article('secondo articolo', 'bla bla bla'),
       new Article('terzo articolo', 'bla bla bla')
     ];
-    let myArticle = this.articles[1];
+    let myArticle = articles[1];
 
-    // map concatenato
-    this.map.set("B",2)
-    .set("C",3)
-    .set("D",4);
-    console.log(this.map.get("A")); 
-    // this.map.size; this.map.has("A"); this.map.delete("A"); this.map.clear(); this.map.keys(); 
-    // this.map.values(); this.map.entries()...
+    // domain model - interface
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let person: Person;
+    person = {
+      firstName: 'Vito',
+      secondName: 'Marelli',
+      eta: 18
+    };
+    console.log(person.eta);
 
-    // set concatenato
-    this.set.add('B')
-    .add('C');
-    // this.set.size; this.set.has("A"); this.set.delete("B"); this.set.clear()...
+    // domain model - inline
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let person2: {
+      firstName: string;
+      secondName: string;
+      eta: number;
+    };
+    person2 = {
+      firstName: 'Vito',
+      secondName: 'Marelli',
+      eta: 18
+    };
+    type PersonInLine = {
+      firstName: string;
+      secondName: string;
+      eta: number;
+    }
+    let person3: PersonInLine = {firstName:"Vito",secondName:"Marelli",eta:18};
+    let person4: PersonInLine = {firstName:"Marco",secondName:"traitti",eta:18};
 
-    // tipo function
-    this.fun = () => console.log("Assegno una funzione");
+
+    // Tipi letterali - definition
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let hello: 'hello';
+    type Direction = "Top" | "Right" | "Bottom" | "Left";
+    type OneToFive = 1 | 2 | 3 | 4 | 5;
+    type Bools = true | false;
+
+    let d: Direction = "Left";
+
+    // Alias
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    type StrOrNum = string | number;
+    let sample: StrOrNum;
+    sample = 123;
+    sample = '123';
+    type Text = string | { text: string };
+    type Coordinates = [number, number];
+    type Callback = (data: string) => void;
+
+    // controlli sul tipo
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    if (typeof title === 'string') console.log(title.substr(1));
+    if (article instanceof Article) console.log(article.toggle);
+    if (title in Article) console.log(article.title);
+
+    // Cattura del tipo di variabile
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    let foo = 123;
+    let bar: typeof foo = 558;
+
+    // Generics
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   }
 
-  getTuple() {
-    console.log(this.tuple[0].substr(1));
-    console.log(this.tuple[5].toString());
-  }
+
 }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // es. 2
