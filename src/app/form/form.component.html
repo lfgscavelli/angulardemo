@@ -1,0 +1,21 @@
+<div style="text-align: center; width: 100%">
+  <div class="card card-block" style="width: 50%">
+    <h4 class="card-title">Crea un nuovo Articolo</h4>
+    <div class="form-group">
+      <input type="text"
+            class="form-control"
+            placeholder="Digita il titolo"
+            #title>
+    </div>
+    <div class="form-group">
+      <textarea rows="4" cols="50"
+            class="form-control"
+            placeholder="Digita il testo dell'articolo"
+            #body></textarea>
+    </div>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="createArticle(title.value, body.value)">Create
+    </button>
+  </div>
+</div>
