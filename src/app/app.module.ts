@@ -10,9 +10,11 @@ import {  AppComponent,
           LBComp,
           LTComp,
           AppElem1,
-          ConsDebComp
+          ConsDebComp,
+          ArticleList
 } from './app.component';
 import { FormComponent } from './form/form.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FormComponent } from './form/form.component';
     LTComp,
     AppElem1,
     ConsDebComp,
-    FormComponent
+    FormComponent,
+    ArticleComponent,
+    ArticleList
   ],
   imports: [
     BrowserModule

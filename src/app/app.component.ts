@@ -1,7 +1,7 @@
 /**
  *  Created by LFG Scavelli on 22/11/2017.
  */
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Article } from './article';
 import { Person } from './person';
 import { Post } from './post';
@@ -11,8 +11,7 @@ import { Post } from './post';
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title: string;
@@ -400,5 +399,30 @@ export class ConsDebComp {
   getInput(event) {
     console.log(event.target.value);
     this.stampval = event.target.value
+  }
+}
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// es. 10
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@Component({
+  selector: 'article-list',
+  template: `
+  <app-form (onArticleCreated)="addArticleToList($event)"></app-form>
+  <app-article *ngFor="let article of articles" [article]="article"></app-article>
+  `,
+  styleUrls: ['./app.component.css'],
+  
+  // influenza la gestione dei css
+  //encapsulation: ViewEncapsulation.Native
+  //encapsulation: ViewEncapsulation.None
+  //encapsulation: ViewEncapsulation.Emulated // predefinita
+})
+export class ArticleList {
+  articles: Array<Article> = [];
+
+  addArticleToList(article) {
+    this.articles.unshift(article);
+    //this.articles.push(article);
   }
 }

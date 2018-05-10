@@ -8,8 +8,8 @@ import { Article } from '../article';
 })
 export class FormComponent implements OnInit {
 
-  @Output() articleCreated = new EventEmitter<Article>();
-  articles: Array<Article> = [];
+  @Output() onArticleCreated = new EventEmitter<Article>();
+  //articles: Array<Article> = [];
 
   constructor() { }
 
@@ -18,9 +18,9 @@ export class FormComponent implements OnInit {
 
 	createArticle(title: string, body: string) {
     let article = new Article(title, body);
-    this.articleCreated.emit(article);
-    this.articles.push(article);
-    console.log(this.articles)
+    this.onArticleCreated.emit(article);
+    //this.articles.push(article);
+    //console.log(this.articles)
 	}
 
 }
