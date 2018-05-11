@@ -9,7 +9,12 @@ import { Article } from '../article';
 export class FormComponent implements OnInit {
 
   @Output() onArticleCreated = new EventEmitter<Article>();
-  //articles: Array<Article> = [];
+  @Output() onArticlesDeleted = new EventEmitter();
+  stato: string[] = [
+    'Pubblico',
+    'Disattivo',
+    'Bozza',
+  ]
 
   constructor() { }
 
@@ -21,6 +26,10 @@ export class FormComponent implements OnInit {
     this.onArticleCreated.emit(article);
     //this.articles.push(article);
     //console.log(this.articles)
-	}
+  }
+  
+  deleteAllArticles() {
+    this.onArticlesDeleted.emit();
+  }
 
 }

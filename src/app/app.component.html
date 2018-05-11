@@ -13,6 +13,7 @@
   <little-tour></little-tour>
   <Ins-Element></Ins-Element>
   <Cons-Deb></Cons-Deb>
-  <article-list></article-list>
+  <app-form (onArticleCreated)="addArticleToList($event)" (onArticlesDeleted)="deleteArticles()"></app-form>
+  <article-list [articles]="articles"></article-list>
 </div>
 

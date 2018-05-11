@@ -1,7 +1,7 @@
 /**
  *  Created by LFG Scavelli on 22/11/2017.
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Article } from './article';
 import { Person } from './person';
 import { Post } from './post';
@@ -15,6 +15,7 @@ import { Post } from './post';
 })
 export class AppComponent {
   title: string;
+  articles: Article[] = [];
 
   constructor () {
 
@@ -227,6 +228,15 @@ export class AppComponent {
 
   }
 
+  addArticleToList(article) {
+    this.articles.unshift(article);
+    //this.articles.push(article);
+  }
+
+  deleteArticles() {
+    this.articles = [];
+  }
+
 
 }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -408,7 +418,6 @@ export class ConsDebComp {
 @Component({
   selector: 'article-list',
   template: `
-  <app-form (onArticleCreated)="addArticleToList($event)"></app-form>
   <app-article *ngFor="let article of articles" [article]="article"></app-article>
   `,
   styleUrls: ['./app.component.css'],
@@ -419,10 +428,5 @@ export class ConsDebComp {
   //encapsulation: ViewEncapsulation.Emulated // predefinita
 })
 export class ArticleList {
-  articles: Array<Article> = [];
-
-  addArticleToList(article) {
-    this.articles.unshift(article);
-    //this.articles.push(article);
-  }
+  @Input() articles: Article[];
 }
