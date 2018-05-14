@@ -401,7 +401,7 @@ export class AppElem1 {
 export class ConsDebComp {
   stampval = '';
   stampval2: string = '';
-  //<input type="text" class="form-control" [(ngModel)]="stampval2">
+  // <input type="text" class="form-control" [(ngModel)]="stampval2">
 
   onClickMe(event) {
     console.log(event);

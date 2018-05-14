@@ -2,36 +2,32 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { Text } from "@angular/compiler";
-
-export interface Article {
-  id: number;
-  title: string;
-  url: string;
-  image: string;
-  content_html: Text;
-  date_created: Date;
-  date_modified: Date;
-  author: {};
-}
+import { Article } from "../app/model/article"
 
 @Injectable()
-export class ArticlesService {
-  baseUrl = "http://newportalcms.com/articles";
+export class RestApiProvider {
+  private baseUrl = 'http://lara.test';
 
-  constructor(private http: HttpClient) {}
-
-  getArticles(): Observable<any> {
-    // aggiungo eventuali parametri alla url (richiesta get)
-    const params = new HttpParams().set('json',null).set('portletid','19');
-    return this.http.get<any>(this.baseUrl, { params: params} );
+  constructor(public http: HttpClient) {
+    console.log('Hello RestApiProvider Provider');
   }
 
-  getArticle(url): Observable<Article> {
-    const params = new HttpParams().set('json',null);
-    return this.http.get<Article>(url, { params: params} );
+  // id portlet deve essere memorizzato nel db e chiesto all'utente
+  getArticles(idPortlet: string): Observable<Article[]> {
+    const params = new HttpParams().set('json','1').set('portletid', idPortlet);
+    let art = this.http.get<Article[]>(this.baseUrl+"/articles", { params: params} );
+    console.log(art);
+    return art;
   }
 
-  postArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(this.baseUrl, article);
+  getArticle(url: string): Observable<Article> {
+    const params = new HttpParams().set('json','1');
+    let art = this.http.get<Article>(url, { params: params} );
+    console.log(art);
+    return art;
+  }
+
+  newArticle(article: Article): Observable<Article> {
+    return this.http.post<Article>(this.baseUrl + '/article', article);
   }
 }

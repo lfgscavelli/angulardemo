@@ -15,6 +15,9 @@ import {  AppComponent,
 } from './app.component';
 import { FormComponent } from './form/form.component';
 import { ArticleComponent } from './article/article.component';
+import { HttpComponent } from './http/http.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RestApiProvider } from '../providers/rest-api';
 
 @NgModule({
   declarations: [
@@ -29,12 +32,14 @@ import { ArticleComponent } from './article/article.component';
     ConsDebComp,
     FormComponent,
     ArticleComponent,
-    ArticleList
+    ArticleList,
+    HttpComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RestApiProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
