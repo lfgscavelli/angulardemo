@@ -20,13 +20,14 @@ import {  HomePageComponent,
           AppElem1,
           ConsDebComp,
           ArticleList } from './home-page/home-page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'find', redirectTo: 'search'},
   {path: 'home', component: HomePageComponent},
   {path: 'search', component: HttpComponent},
-  {path: '**', component: HomePageComponent}
+  {path: '**', component: NotfoundComponent}
 ];
 
 @NgModule({
@@ -45,7 +46,8 @@ const routes: Routes = [
     ArticleList,
     HttpComponent,
     HeaderComponent,
-    HomePageComponent
+    HomePageComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
