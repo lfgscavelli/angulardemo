@@ -1,15 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { FormComponent } from './form/form.component';
-import { ArticleComponent } from './article/article.component';
-import { HttpComponent } from './http/http.component';
-import { HttpClientModule } from '@angular/common/http';
-import { RestApiProvider } from '../providers/rest-api';
-import { HeaderComponent } from './header/header.component';
+import {  AppComponent } from './app.component';
+import {  FormComponent } from './form/form.component';
+import {  ArticleComponent } from './article/article.component';
+import {  ArticleListComponent } from './article-list/article-list.component';
+import {  HttpClientModule } from '@angular/common/http';
+import {  RestApiProvider } from '../providers/rest-api';
+import {  HeaderComponent } from './header/header.component';
 import {  HomePageComponent,
           KeyUpCompV1,
           KeyUpCompV2,
@@ -20,13 +19,15 @@ import {  HomePageComponent,
           AppElem1,
           ConsDebComp,
           ArticleList } from './home-page/home-page.component';
-import { NotfoundComponent } from './notfound/notfound.component';
+import {  NotfoundComponent } from './notfound/notfound.component';
+import {  ArticlePageComponent } from './article-page/article-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'find', redirectTo: 'search'},
   {path: 'home', component: HomePageComponent},
-  {path: 'search', component: HttpComponent},
+  {path: 'articles', component: ArticleListComponent},
+  {path: 'article/:id', component: ArticlePageComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
@@ -44,10 +45,11 @@ const routes: Routes = [
     FormComponent,
     ArticleComponent,
     ArticleList,
-    HttpComponent,
+    ArticleListComponent,
     HeaderComponent,
     HomePageComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ArticlePageComponent
   ],
   imports: [
     BrowserModule,

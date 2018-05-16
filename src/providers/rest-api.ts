@@ -2,8 +2,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from "@angular
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry, tap } from 'rxjs/operators';
-import { Text } from "@angular/compiler";
-import { Article } from "../app/model/article"
+import { Article } from "../app/model/article.model"
 
 @Injectable()
 export class RestApiProvider {
@@ -35,6 +34,11 @@ export class RestApiProvider {
   getArticle(url: string): Observable<Article> {
     const params = new HttpParams().set('json','1');
     return this.http.get<Article>(url, { params: params} );
+  }
+
+  getArticleById(id: number): Observable<Article> {
+    const params = new HttpParams().set('json','1').set('id',id.toString());
+    return this.http.get<Article>(this.baseUrl + '/article', { params: params} );
   }
 
   addArticle(article: Article): Observable<Article> {

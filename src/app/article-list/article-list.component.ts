@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiProvider } from '../../providers/rest-api';
-import { Article } from "../model/article";
+import { Article } from '../model/article.model';
 
 @Component({
-  selector: 'app-http',
-  templateUrl: './http.component.html',
-  styleUrls: ['./http.component.css']
+  selector: 'app-article-list',
+  templateUrl: './article-list.component.html',
+  styleUrls: ['./article-list.component.css']
 })
-export class HttpComponent implements OnInit {
+export class ArticleListComponent implements OnInit {
   articles: Article[];
   article: Article;
-  errorMessage: string = '';
+  errorMessage = '';
   contents: string;
 
-  constructor(public rest: RestApiProvider) {}
+  // Iniezione di dipendenza di Angular - rest: RestApiProvider
+  constructor(private rest: RestApiProvider) {}
 
   ngOnInit() {
     this.searchArticles();
@@ -23,27 +24,27 @@ export class HttpComponent implements OnInit {
     this.rest.getArticles('35') // id portlets 19
     .subscribe(
       (articles: Article[]) => { this.articles = articles['items'], // { ...articles }
-      error =>  this.errorMessage = <any>error
+      error =>  this.errorMessage = <any>error;
       }
     );
   }
 
   searchArticles() {
-    this.rest.searchArticles('35','angular')
+    this.rest.searchArticles('19', 'angular' )
     .subscribe(
-      (articles: Article[]) => { this.articles = articles['items'], // { ...articles }
-      error =>  this.errorMessage = <any>error
+      (articles: Article[]) => { this.articles = articles['items'],
+        error =>  this.errorMessage = <any>error;
       }
     );
   }
 
   // example .subscribe - Observable
-  /*
+/*
   searchArticles() {
     this.rest.searchArticles('35','angular')
     .subscribe(
       val => {
-          console.log("GET call successful value returned in body", 
+          console.log("GET call successful value returned in body",
                       val);
       },
       response => {
@@ -53,7 +54,8 @@ export class HttpComponent implements OnInit {
           console.log("The GET observable is now completed.");
       }
     );
-  }*/
+  }
+*/
 
   addArticles() {
     this.rest.addArticle(new Article())
@@ -64,16 +66,18 @@ export class HttpComponent implements OnInit {
     this.rest.deleteArticle(id).subscribe();
   }
 
+  // recupero ulteriori dati dal Back end
+  // (click)="articleSelected(c)" da inserire nel template
   articleSelected(c) {
     this.rest.getArticle(c.url)
     .subscribe(
-      article => this.article = article,
+      article =>  this.article = article,
       error =>  this.errorMessage = <any>error
     );
   }
 
   getTextFile(file: string) {
-    this.rest.getTextFile(file) //'assets/textfile.txt'
+    this.rest.getTextFile(file) // 'assets/textfile.txt'
     .subscribe(results => this.contents = results);
   }
 

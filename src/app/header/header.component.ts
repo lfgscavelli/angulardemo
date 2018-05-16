@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RouterModule, Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goSearch() {
-    this.router.navigate(['search']);
+    this.router.navigate(['articles']);
   }
 
 }

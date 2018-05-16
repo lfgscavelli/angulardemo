@@ -1,0 +1,11 @@
+<h1 *ngIf="!article">Loading...</h1>
+
+<div class="card mb-3" *ngIf="article">
+  <img class="card-img-top" src="{{ article.image }}" alt="{{ article.title }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ article.title | uppercase }}</h5>
+    <p class="card-text" [innerHTML]="article.content_html"></p>
+    <p class="card-text"><small class="text-muted">{{ article.date_modified}}</small></p>
+    <a href="{{ article.url }}" class="btn btn-primary">Vai sul sito dell'autore</a>
+  </div>
+</div>

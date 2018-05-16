@@ -8,28 +8,29 @@ import { Article } from '../article';
 })
 export class FormComponent implements OnInit {
 
-  @Output() onArticleCreated = new EventEmitter<Article>();
-  @Output() onArticlesDeleted = new EventEmitter();
-  stato: string[] = [
-    'Pubblico',
-    'Disattivo',
-    'Bozza',
-  ]
+@Output() articleCreated = new EventEmitter<Article>();
+@Output() articlesDeleted = new EventEmitter();
 
-  constructor() { }
+stato: string[] = [
+  'Pubblico',
+  'Disattivo',
+  'Bozza',
+]
 
-  ngOnInit() {
-  }
+constructor() { }
 
-	createArticle(title: string, body: string) {
-    let article = new Article(title, body);
-    this.onArticleCreated.emit(article);
-    //this.articles.push(article);
-    //console.log(this.articles)
-  }
-  
-  deleteAllArticles() {
-    this.onArticlesDeleted.emit();
-  }
+ngOnInit() {
+}
+
+createArticle(title: string, body: string) {
+  const article = new Article(title, body);
+  this.articleCreated.emit(article);
+  // this.articles.push(article);
+  // console.log(this.articles)
+}
+
+deleteAllArticles() {
+  this.articlesDeleted.emit();
+}
 
 }
