@@ -8,6 +8,7 @@ import {  ArticleComponent } from './article/article.component';
 import {  ArticleListComponent } from './article-list/article-list.component';
 import {  HttpClientModule } from '@angular/common/http';
 import {  RestApiProvider } from '../providers/rest-api';
+import {  PrismService } from '../providers/prism.service';
 import {  HeaderComponent } from './header/header.component';
 import {  HomePageComponent,
           KeyUpCompV1,
@@ -21,6 +22,7 @@ import {  HomePageComponent,
           ArticleList } from './home-page/home-page.component';
 import {  NotfoundComponent } from './notfound/notfound.component';
 import {  ArticlePageComponent } from './article-page/article-page.component';
+
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -56,7 +58,9 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [RestApiProvider],
+  providers: [
+    RestApiProvider,
+    PrismService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,9 @@
 <h1 *ngIf="!article">Loading...</h1>
 
-<div class="card mb-3" *ngIf="article">
-  <img class="card-img-top" src="{{ article.image }}" alt="{{ article.title }}">
+<button (click)="goBack()">go back</button>
+
+<div class="card mb-3" *ngIf="article" >
+  <img class="card-img-top" src="{{ article.image }}" alt="{{ article.title }}" data-holder-rendered="true" style="width: 100%; display: block;">
   <div class="card-body">
     <h5 class="card-title">{{ article.title | uppercase }}</h5>
     <p class="card-text" [innerHTML]="article.content_html"></p>
