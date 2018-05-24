@@ -29,13 +29,17 @@ export class ArticlePageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params["id"];
-    // const id = +this.route.snapshot.paramMap.get('id');
+    // const id = +this.route.snapshot.paramMap.get('id'); // altra alternativa
+    // let id: number = 0;
+    // this.route.params.subscribe(params => { id = params['id'] }); // alternativa
+
     // il parametro + converte la stringa in un numero
     this.rest.getArticleById(id)
       .subscribe(
         (article) => { this.article = article['items'][0] }
       );
   }
+
 
   ngAfterViewChecked() {
     if (!this.highlighted) {

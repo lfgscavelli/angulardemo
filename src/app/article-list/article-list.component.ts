@@ -30,7 +30,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   searchArticles() {
-    this.rest.searchArticles('19', 'angular' )
+    this.rest.searchArticles('35', 'angular' )
     .subscribe(
       (articles: Article[]) => { this.articles = articles['items'],
         error =>  this.errorMessage = <any>error;
