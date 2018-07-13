@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { catchError, retry, tap } from 'rxjs/operators';
+import { catchError, retry, tap, map } from 'rxjs/operators';
 import { Article } from "../app/model/article.model"
 
 @Injectable()
@@ -29,6 +29,11 @@ export class RestApiProvider {
         retry(3), // in caso di mancato accesso, riprova la richiesta per tre volte.
         catchError(this.handleError)
       );
+  }
+
+  getArticlesByDate(dal:string,al:string): Observable<Article[]> {
+      const params = new HttpParams().set('dal',dal).set('al',al);
+      return this.http.get(this.baseUrl+'/bydate', { params: params} ).pipe(map((res: Response) => res['items']));
   }
 
   getArticle(url: string): Observable<Article> {

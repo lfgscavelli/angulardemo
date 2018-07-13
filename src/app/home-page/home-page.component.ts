@@ -395,6 +395,7 @@ export class AppElem1 {
     es. 9<br />
     <button (click)="onClickMe($event)">Click me!</button><br />
     <button (click)="onClickMe($event.target.value)" value="test value button">Click me!</button><br />
+    <button (click)="onClickOther($event)" value="test value button" [id]="'testbutton'+stampval">Click me!</button><br />
     <input type="text" class="form-control" (input)="getInput($event)"><br />
     <p>{{ stampval}}</p><p>{{ stampval2}}</p>
     <h1 [innerText]="'Il mio nome è ' + stampval "></h1>
@@ -412,6 +413,13 @@ export class ConsDebComp {
   getInput(event) {
     console.log(event.target.value);
     this.stampval = event.target.value
+  }
+
+  onClickOther(event) {
+      var target = event.target || event.srcElement || event.currentTarget;
+      var idAttr = target.attributes.id;
+      var value = idAttr.nodeValue;
+      alert(value);
   }
 }
 
